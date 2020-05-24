@@ -94,3 +94,12 @@ export const ContainerRepository = styled.div`
 
     }
 `;
+
+export const Dedication = styled.div`
+    color: #4C0E95;
+
+    svg {
+        margin: 0 7px;
+    }
+
+`;

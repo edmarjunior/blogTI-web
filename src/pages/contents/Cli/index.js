@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { MdFavorite } from 'react-icons/md';
 
-import { Container, Paragraph, ListImage, ContainerRepository } from './styles';
+import { Container, Paragraph, ListImage, ContainerRepository, Dedication } from './styles';
 import img1 from './assets/img1.png';
 import img2 from './assets/img2.png';
 import img3 from './assets/img3.png';
@@ -53,7 +54,7 @@ export default function Cli() {
         <Container>
             <header>
                 <h1>Como criar uma CLI em Node.js</h1>
-                <span>Postado em: 24/05/2020</span>
+                <span>Postado em 24/05/2020</span>
             </header>
 
 
@@ -253,7 +254,13 @@ export default function Cli() {
                 <Paragraph>
                     Até a próxima, valeu galera!
                 </Paragraph>
+                
             </div>
+            <Dedication>
+                <span>Dedico este post à <strong>Tábata Costa</strong></span> 
+                <MdFavorite color="#ff0000" size={20} />
+                <span>minha esposa e revisora deste conteúdo, obrigado por tudo! 😊</span>
+            </Dedication>
         </Container>
     );
 }
