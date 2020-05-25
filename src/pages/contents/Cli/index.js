@@ -61,7 +61,7 @@ export default function Cli() {
             <div>
                 <p>
                     Neste post irei abordar como criar uma CLI (interface de linha de comando) em node.js, o conteúdo será para iniciante no assunto, nossa aplicação será bem simples, 
-                    porém servirá de base para entendermos alguns conceitos. Em futuros post, pretendo criar uma outra CLI com uma utilidade mais aplicável na concepção de novos projetos.
+                    porém servirá de base para entendermos alguns conceitos. Em futuros post's, pretendo criar uma outra CLI com uma utilidade mais aplicável na concepção de novos projetos.
                 </p>
             </div>
 
@@ -190,7 +190,7 @@ export default function Cli() {
                         <strong>Linha 3:</strong>  estamos importando o ‘commander’ que acabamos de instalar
                     </li>
                     <li>
-                        <strong>Linha 6:</strong> estamos definhando um comando para escutar nossa ação, observe que na string passada como argumento estamos dizendo qual é o comando 
+                        <strong>Linha 6:</strong> estamos definindo um comando para escutar nossa ação, observe que na string passada como argumento estamos dizendo qual é o comando 
                         e os argumentos “x” e “y” que são obrigatórios por estarem envolvidos por “&lt;&gt;”, caso eles fossem opcionais deveriam estar envolvidos por “[]”
                     </li>
                     <li>
