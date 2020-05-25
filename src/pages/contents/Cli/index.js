@@ -47,7 +47,7 @@ export default function Cli() {
         
         getRepo();
 
-    }, [repo]);
+    }, []);
 
 
     return (
