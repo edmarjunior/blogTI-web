@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { MdFavorite } from 'react-icons/md';
+import api from '../../../services/api';
 
 import { Container, Paragraph, ListImage, ContainerRepository, Dedication } from './styles';
 import img1 from './assets/img1.png';
@@ -20,21 +20,28 @@ import img14 from './assets/img14.png';
 import img15 from './assets/img15.png';
 import img16 from './assets/img16.png';
 
-const api = axios.create({
-    baseURL: 'https://api.github.com'
-});
-
 export default function Cli() {
 
+    const [conteudo, setConteudo] = useState({});
     const [repo, setRepo] = useState({});
 
     useEffect(() => {
-
         async function getRepo() {
-            const response = await api.get('/repos/edmarjunior/calculadora-cli');
 
-            const { name, html_url, description } = response.data;
-            const { avatar_url } = response.data.owner;
+            const responseRepo  = await api.get('https://api.github.com/repos/edmarjunior/calculadora-cli');
+
+            const responseIp = await api.get('https://api.ipify.org/?format=json');
+
+            console.log(responseIp);
+
+            api.defaults.headers.common['Ip'] = responseIp.data.ip;
+
+            const responseConteudo = await api.get('/conteudos/1');
+
+            const { name, html_url, description } = responseRepo.data;
+            const { avatar_url } = responseRepo.data.owner;
+
+            setConteudo(responseConteudo.data);
 
             setRepo(
             {
@@ -53,18 +60,15 @@ export default function Cli() {
     return (
         <Container>
             <header>
-                <h1>Como criar uma CLI em Node.js</h1>
+                <h1>{conteudo.titulo}</h1>
                 <span>Postado em 24/05/2020</span>
             </header>
-
-
             <div>
                 <p>
                     Neste post irei abordar como criar uma CLI (interface de linha de comando) em node.js, o conteúdo será para iniciante no assunto, nossa aplicação será bem simples, 
                     porém servirá de base para entendermos alguns conceitos. Em futuros post's, pretendo criar uma outra CLI com uma utilidade mais aplicável na concepção de novos projetos.
                 </p>
             </div>
-
             <div>
                 <h2>Breve explicação sobre CLI</h2>
                 <Paragraph>
