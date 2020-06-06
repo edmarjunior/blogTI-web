@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { MdFavorite } from 'react-icons/md';
+import { parseISO, format } from "date-fns";
+import pt from "date-fns/locale/pt";
+
 import api from '../../../services/api';
 
 import { Container, Paragraph, ListImage, ContainerRepository, Dedication } from './styles';
@@ -32,16 +35,17 @@ export default function Cli() {
 
             const responseIp = await api.get('https://api.ipify.org/?format=json');
 
-            console.log(responseIp);
-
             api.defaults.headers.common['Ip'] = responseIp.data.ip;
 
-            const responseConteudo = await api.get('/conteudos/1');
+            const { data } = await api.get('/conteudos/1');
 
             const { name, html_url, description } = responseRepo.data;
             const { avatar_url } = responseRepo.data.owner;
 
-            setConteudo(responseConteudo.data);
+            setConteudo({
+                ...data,
+                dataPublicacaoFormatada: format(parseISO(data.data_publicacao, { locale: pt }), 'dd/MM/yyyy')
+            });
 
             setRepo(
             {
@@ -61,7 +65,8 @@ export default function Cli() {
         <Container>
             <header>
                 <h1>{conteudo.titulo}</h1>
-                <span>Postado em 24/05/2020</span>
+                <span>Postado em {conteudo.dataPublicacaoFormatada}</span>
+                <span>{conteudo.quantidade_acessos} acessos</span>
             </header>
             <div>
                 <p>

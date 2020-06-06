@@ -13,6 +13,7 @@ export const Container = styled.div`
         }
 
         span {
+            display: block;
             opacity: 0.5;
             font-size: 12px;
         }
