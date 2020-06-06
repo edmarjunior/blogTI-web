@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MdFavorite } from 'react-icons/md';
 import { parseISO, format } from "date-fns";
 import pt from "date-fns/locale/pt";
+import { Modal, Button } from 'react-bootstrap';
 
 import api from '../../../services/api';
 
@@ -27,6 +28,11 @@ export default function Cli() {
 
     const [conteudo, setConteudo] = useState({});
     const [repo, setRepo] = useState({});
+
+    // testes com modal do bootstrap
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         async function getRepo() {
@@ -59,7 +65,6 @@ export default function Cli() {
         getRepo();
 
     }, []);
-
 
     return (
         <Container>
@@ -144,10 +149,11 @@ export default function Cli() {
                 </Paragraph>
                 <img src={img8} alt="comando npm link" />
                 <Paragraph>
-                Agora sim, digitando o comando “calculadora” (definido no package.json) nossa CLI já será executada exibindo o valor 7 (resultado do cálculo da soma) 😊.
+                Agora sim, digitando o comando “calculadora” (definido no package.json) nossa CLI já será executada exibindo o valor 7 (resultado do cálculo da soma).
                 </Paragraph>
                 <img src={img9} alt="comando calculadora" />
-            </div> <div>
+            </div> 
+            <div>
                 <h2>Passando parâmetros</h2>
                 <Paragraph>
                     Se executarmos nosso comando “calculadora” passando os argumentos 5 6, exemplo: “calculadora 5 6” podemos recuperar esse argumentos dentro do 
@@ -161,7 +167,7 @@ export default function Cli() {
                 <img src={img11} alt="conteúdo da matriz de argumentos" />
                 <Paragraph>
                     Observe que a matriz possui 4 itens, onde os dois primeiros se referem a forma de como o script foi executado e o caminho do arquivo que foi executado, 
-                    e os outros dois são os argumentos que passamos via terminal com o comando “calculadora 5 6”. Pronto agora já aprendemos como capturar os argumentos enviados 😉
+                    e os outros dois são os argumentos que passamos via terminal com o comando “calculadora 5 6”. Pronto agora já aprendemos como capturar os argumentos enviados
                 </Paragraph>
                 <Paragraph>
                     Agora que já sabemos como capturar os argumentos, vamos alterar nosso arquivo “calc.js” para capturar os argumentos e passa-los para função que 
@@ -171,7 +177,7 @@ export default function Cli() {
                 <Paragraph>
                     Observe que tive que utilizar o operador “+” (nas linhas 9 e 10) para converter os argumentos para números, pois como vimos, a matriz “argv” armazena 
                     somente string, se você não converter os argumentos, o resultado da soma abaixo seria “56” (pois a função soma iria fazer uma concatenação ao em vez 
-                    de 11 que seria a soma) 😊
+                    de 11 que seria a soma)
                 </Paragraph>
                 <img src={img13} alt="comando calculadora passando os argumentos 5 6" />
                 <Paragraph>
@@ -268,8 +274,28 @@ export default function Cli() {
             <Dedication>
                 <span>Dedico este post à <strong>Tábata Costa</strong></span> 
                 <MdFavorite color="#ff0000" size={20} />
-                <span>minha esposa e revisora deste conteúdo, obrigado por tudo! 😊</span>
+                <span>minha esposa e revisora deste conteúdo, obrigado por tudo!</span>
             </Dedication>
+            <div>
+                <Button variant="primary" onClick={handleShow}>
+                    Launch demo modal
+                </Button>
+
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Save Changes
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
         </Container>
     );
 }
