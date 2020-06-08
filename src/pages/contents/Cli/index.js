@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MdFavorite } from 'react-icons/md';
 import { parseISO, format } from "date-fns";
 import pt from "date-fns/locale/pt";
-import { Modal, Button } from 'react-bootstrap';
+// import { Modal, Button } from 'react-bootstrap';
 
 import api from '../../../services/api';
 
@@ -276,7 +276,7 @@ export default function Cli() {
                 <MdFavorite color="#ff0000" size={20} />
                 <span>minha esposa e revisora deste conteúdo, obrigado por tudo!</span>
             </Dedication>
-            <div>
+            {/* <div>
                 <Button variant="primary" onClick={handleShow}>
                     Launch demo modal
                 </Button>
@@ -295,7 +295,7 @@ export default function Cli() {
                     </Button>
                     </Modal.Footer>
                 </Modal>
-            </div>
+            </div> */}
         </Container>
     );
 }

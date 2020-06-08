@@ -9,12 +9,12 @@ export default function Footer() {
         <Container>
             <Actions>
                 {/* <Button>Show Toast</Button> */}
-                <span>O que você achou desse post?</span>
+                {/* <span>O que você achou desse post?</span>
                 <div>
                     <MdFavorite color="#ff0000" size={23} title="Amei" />
                     <MdThumbUp color="#220597" size={23} title="Curti" />
                     <MdThumbDown color="#000" size={23} title="Não gostei" />
-                </div>
+                </div> */}
             </Actions>
             <div>
                 <a href="https://github.com/edmarjunior" title="GitHub" target="_blank">
