@@ -24,14 +24,3 @@ export const Container = styled.div`
         }
     }
 `;
-
-export const Actions = styled.div`
-    margin: 0 30px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    span {
-        display: block;
-    }
-`;

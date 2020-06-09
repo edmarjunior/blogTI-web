@@ -1,4 +1,53 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+export const Aside = styled.aside`
+    position: fixed;
+    top: 40%;
+    left: 200px;
+    border: 0;
+    display: flex;
+    align-items: center;
+    
+    span {
+        display: block;
+        opacity: 0.6;
+        font-size: 13px;
+    }
+`;
+
+export const LikeButton = styled.button`
+    background: transparent;
+    opacity: ${(props => props.curtido ? '1' : '0.5')};
+    border: 0;
+    transition: all 0.5s ease-in-out;
+
+    ${(props => props.curtido && css`
+        transform: scale(1.5);
+        opacity: 1;
+        margin-right: 10px;
+    `)}
+
+    :hover {
+        transform: scale(1.5);
+        opacity: 1;
+        margin-right: 10px;
+    }
+
+    ${(props => !props.curtido && css`
+        animation: up 2s linear infinite;
+        @keyframes up {
+            from {
+                transform: scale(1);
+                margin-right: 0px;
+            }
+
+            to {
+                transform: scale(1.5);
+                margin-right: 10px;
+            }
+        }
+    `)}
+`;
 
 export const Container = styled.div`
     max-width: 900px;

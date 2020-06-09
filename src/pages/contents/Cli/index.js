@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { MdFavorite } from 'react-icons/md';
 import { parseISO, format } from "date-fns";
 import pt from "date-fns/locale/pt";
-// import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
+import GoogleLogin from "react-google-login";
 
 import api from '../../../services/api';
 
-import { Container, Paragraph, ListImage, ContainerRepository, Dedication } from './styles';
+import { Aside, LikeButton, Container, Paragraph, ListImage, ContainerRepository, Dedication } from './styles';
 import img1 from './assets/img1.png';
 import img2 from './assets/img2.png';
 import img3 from './assets/img3.png';
@@ -28,14 +29,22 @@ export default function Cli() {
 
     const [conteudo, setConteudo] = useState({});
     const [repo, setRepo] = useState({});
+    const [user, setUser] = useState({});
+    const [isCurtido, setIsCurtido] = useState(false);
+    const [acao, setAcao] = useState('');
 
-    // testes com modal do bootstrap
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [showModal, setshowModal] = useState(false);
+    const handleClose = () => setshowModal(false);
 
     useEffect(() => {
         async function getRepo() {
+
+            const user = localStorage.getItem('user');
+
+            if (user) {
+                setUser(JSON.parse(user));
+            }
+            console.log(JSON.parse(user));
 
             const responseRepo  = await api.get('https://api.github.com/repos/edmarjunior/calculadora-cli');
 
@@ -66,12 +75,43 @@ export default function Cli() {
 
     }, []);
 
+    function handleCurtirConteudo() {
+
+        setAcao('curtir');
+
+        if (user?.email) {
+            setIsCurtido(true);
+            return;
+        }
+
+        setshowModal(true);
+    }
+
+    function confirmFeedBack(response) {
+
+        if (acao === 'curtir') {
+            setIsCurtido(true);
+        }
+
+        localStorage.setItem('user', JSON.stringify(response.profileObj));
+        setUser(response.profileObj)
+        setshowModal(false);
+    }
+
     return (
+        
         <Container>
+            <Aside>
+                <LikeButton type="button" curtido={false}>
+                    <MdFavorite color="#ff0000" size={30} />
+                </LikeButton>
+                <span>12</span>
+            </Aside>
             <header>
                 <h1>{conteudo.titulo}</h1>
                 <span>Postado em {conteudo.dataPublicacaoFormatada}</span>
                 <span>{conteudo.quantidade_acessos} acessos</span>
+                <span>logado como: {(user?.email ? user.email : 'não logado')}</span>
             </header>
             <div>
                 <p>
@@ -276,26 +316,40 @@ export default function Cli() {
                 <MdFavorite color="#ff0000" size={20} />
                 <span>minha esposa e revisora deste conteúdo, obrigado por tudo!</span>
             </Dedication>
-            {/* <div>
-                <Button variant="primary" onClick={handleShow}>
-                    Launch demo modal
+            <div>
+                <Button variant="primary" onClick={handleCurtirConteudo} disabled={isCurtido} >
+                    Curtir conteúdo
                 </Button>
+                <span style={{ "marginLeft": "10px;", "display": "block"}} >{isCurtido ? 'curtido' : 'vamos curtir '}</span>
 
-                <Modal show={show} onHide={handleClose}>
+                <Modal show={showModal} onHide={handleClose}>
                     <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                        <Modal.Title>Login social</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                    <Modal.Body>
+                        <div className="row" style={{ 'paddingTop': "20px" }}>
+                            <div className="col-sm-12">
+                                Obrigado por interagir com este conteúdo, favor escolher sua forma de acesso.
+                            </div>
+                        </div>
+                        <div className="row" style={{ "paddingTop": "20px", "textAlign":  "center" }}>
+                            <div className="col-sm-12">
+                                <GoogleLogin
+                                    clientId="675684563897-k78cmsj7dc67l82gq7se6oikm7596bl1.apps.googleusercontent.com"
+                                    buttonText="Login with Google"
+                                    onSuccess={confirmFeedBack}
+                                    onFailure={confirmFeedBack} >
+                                </GoogleLogin>
+                            </div>
+                        </div>
+                    </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
                     </Modal.Footer>
                 </Modal>
-            </div> */}
+            </div>
         </Container>
     );
 }
