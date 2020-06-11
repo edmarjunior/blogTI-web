@@ -1,66 +1,69 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import logo from "../../assets/logo.png";
 
-export const Container = styled.header`
-  background: linear-gradient(-90deg, #1d242e, #4C0E95);
-  padding: 0 30px;
+export const Container = styled.div`
+  position: fixed;
+  z-index: 1;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  padding: 5px 15px;
+  border-bottom: 1px solid #ddd;
+  background-color: #fff;
+  height: 200px;
 `;
 
 export const Content = styled.div`
-  height: 80px;
+  position: relative;
+  z-index: 10;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  max-width: 1000px;
-  margin: 0 auto;
-`;
+  justify-content: space-between;
 
-export const LinkTitulo = styled(Link)`
-  color: #fff;
-  text-decoration: none;
-  opacity: 0.6;
+  div:first-child {
+    margin-left: 65px;
+  }
 
-  :hover {
-    opacity: 1;
+  > div {
+    display: flex;
+    align-items: center;
   }
 `;
 
-export const Menu = styled.ul`
+export const Navigation = styled.div`
+  a {
+    background-image: url(${logo});
+    width: 200px;
+    height: 54px;
+    margin-right: 20px;
+  }
+
+  span {
+    border-left: 1px solid #ddd;
+    margin-left: 15px;
+    padding-left: 15px;
+  }
+`;
   
-  list-style: none;
-  display: flex;
+export const Profile = styled.div`
+  div {
+    text-align: right;
 
-  li {
-
-    padding: 0 30px;
-
-    &::after {
-      content: '';
+    span {
       display: block;
-      border-bottom: solid 3px #1DAAE7;
-      transform: scaleX(0);
-      transition: transform 250ms ease-in-out;
-      margin-top: 5px;
-    }
-
-    &:hover {
-      cursor: pointer;
-
-      &::after {
-        transform: scaleX(1);
-      }
-
-      > a {
-        opacity: 1;
-      }
-    }
-   
-    a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 16px;
-      opacity: 0.7;
+      opacity: 0.5;
+      font-size: 12px;
     }
   }
 
-`;
+  img {
+    margin-left: 10px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+
+    :hover {
+      border-color: #8ec9ff;
+    }
+  }
+`

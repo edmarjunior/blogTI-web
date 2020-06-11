@@ -15,23 +15,26 @@ export const Aside = styled.aside`
     }
 `;
 
-export const LikeButton = styled.button`
+export const LikeButton =styled.button.attrs(props => ({
+    title:  props.curtido ? 'Obrigado por curtir esse post' : 'Curtir',
+}))`
     background: transparent;
     opacity: ${(props => props.curtido ? '1' : '0.5')};
     border: 0;
     transition: all 0.5s ease-in-out;
-
-    ${(props => props.curtido && css`
-        transform: scale(1.5);
-        opacity: 1;
-        margin-right: 10px;
-    `)}
-
+    
     :hover {
         transform: scale(1.5);
         opacity: 1;
         margin-right: 10px;
     }
+
+    ${(props => props.curtido && css`
+        transform: scale(1.5);
+        opacity: 1;
+        margin-right: 10px;
+        cursor: default !important;
+    `)}
 
     ${(props => !props.curtido && css`
         animation: up 2s linear infinite;
@@ -49,56 +52,8 @@ export const LikeButton = styled.button`
     `)}
 `;
 
-export const Container = styled.div`
-    max-width: 900px;
-    margin: 30px auto 0;
-    margin-bottom: 100px;
-    padding: 10px;
-
-    header {
-        margin-bottom: 30px;
-        h1 {
-            color: #4C0E95;
-        }
-
-        span {
-            display: block;
-            opacity: 0.5;
-            font-size: 12px;
-        }
-    }
-
-    div {
-        & + div {
-            margin-top: 40px;
-        }
-
-        h2 {
-            margin-bottom: 26px;;
-        }
-    }
-
-    img {
-        border: 1px solid #ccc;
-        box-shadow: 2px 2px 5px rgba(0,0,0,.5);
-        padding: 3px;
-        border-radius: 3px;
-    }
-
-    ul {
-        margin: 26px 0 0 20px;
-
-    }
-`;
-
-export const Paragraph = styled.p`
-    margin-top: 26px;
-`;
-
 export const ListImage = styled.div`
     display: flex;
-    /* align-items: center; */
-    /* justify-content: center; */
     img + img {
         margin-left: 10px;
     }
@@ -143,13 +98,4 @@ export const ContainerRepository = styled.div`
         font-size: 14px;
 
     }
-`;
-
-export const Dedication = styled.div`
-    color: #4C0E95;
-
-    svg {
-        margin: 0 7px;
-    }
-
 `;

@@ -8,8 +8,8 @@ export const Container = styled.div`
     left: 0;
     bottom: 0;
     width: 100%;
-    margin-rigth: 30px;
-    display: flex;
+    /* margin-right: 30px; */
+    display: none;
     align-items: center;
     justify-content: flex-end;
     color: #4C0E95;
