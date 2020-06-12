@@ -60,6 +60,7 @@ export default function Header() {
     function handleLogoff() {
         dispatch(createUsuario(null));
         setShowLogoffModal(false);
+        toast('Sessão encerrada', { position: 'bottom-right' });
     }
 
     return (
