@@ -100,9 +100,9 @@ export default function Cli() {
                     :  conteudo.quantidade_curtidas + 1 
             });
 
-            toast(response.data.msg ?? 'Obrigado por curtir esse post');
+            toast.info(response.data.msg ?? 'Obrigado por curtir esse post');
         } catch (err) {
-            toast(err.response?.data?.error ?? 'Desculpe! Ocorreu um erro interno, por favor tente mais tarde');
+            toast.error(err.response?.data?.error ?? 'Desculpe! Ocorreu um erro interno, por favor tente mais tarde');
         }
     }
 

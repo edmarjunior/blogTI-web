@@ -50,7 +50,7 @@ export default function Header() {
 
         setShowAuthModal(false);
 
-        toast(`Bem vindo ${nome}`, { position: 'bottom-right' });
+        toast.info(`Bem vindo ${nome}`, { position: 'bottom-right' });
     }
     
     function onFailureAuth() {
@@ -60,7 +60,7 @@ export default function Header() {
     function handleLogoff() {
         dispatch(createUsuario(null));
         setShowLogoffModal(false);
-        toast('Sessão encerrada', { position: 'bottom-right' });
+        toast.info('Sessão encerrada', { position: 'bottom-right' });
     }
 
     return (
