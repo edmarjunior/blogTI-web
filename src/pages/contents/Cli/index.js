@@ -37,6 +37,7 @@ export default function Cli() {
 
     useEffect(() => {
         async function carregaDados() {
+
             // api do gitHub
             const responseRepo  = await api.get('https://api.github.com/repos/edmarjunior/calculadora-cli');
             const { name, html_url, description } = responseRepo.data;
@@ -53,10 +54,11 @@ export default function Cli() {
             const responseIp = await api.get('https://api.ipify.org/?format=json');
 
             // api do conteúdo
-            api.defaults.headers.common['Ip'] = responseIp.data.ip;
-
             const { data } = await api.get('/conteudos/1', {
-                params: { idUsuario: usuario?.id }
+                params: { idUsuario: usuario?.id },
+                headers: {
+                    Ip: responseIp.data.ip
+                }
             });
             
             setConteudo({
@@ -75,7 +77,8 @@ export default function Cli() {
         }
 
         if (usuario?.email) {
-            return postCurtir(usuario);
+            postCurtir(usuario);
+            return;
         }
 
         dispatch(openModal());
@@ -83,9 +86,11 @@ export default function Cli() {
 
     async function postCurtir(usuarioCallBack) {
         try {
-            api.defaults.headers.Authorization = `bearer ${usuarioCallBack.token}`;
-
-            const response = await api.post('curtida-conteudo/1');
+            const response = await api.post('curtida-conteudo/1', null, {
+                headers: {
+                    Authorization: `bearer ${usuarioCallBack.token}`
+                }
+            });
             
             setConteudo({
                 ...conteudo,
@@ -116,7 +121,6 @@ export default function Cli() {
                     <h1>{conteudo.titulo}</h1>
                     <span>Postado em {conteudo.dataPublicacaoFormatada}</span>
                     <span>{conteudo.quantidade_acessos} acessos</span>
-                    <span>logado como: {(usuario?.email ? usuario.email : 'não logado')}</span>
                     <p>
                         Neste post irei abordar como criar uma CLI (interface de linha de comando) em node.js, o conteúdo será para iniciante no assunto, nossa aplicação será bem simples, 
                         porém servirá de base para entendermos alguns conceitos. Em futuros post's, pretendo criar uma outra CLI com uma utilidade mais aplicável na concepção de novos projetos.

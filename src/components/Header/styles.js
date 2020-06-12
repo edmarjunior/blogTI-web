@@ -60,6 +60,8 @@ export const Profile = styled.div`
     margin-left: 10px;
     border: 2px solid #ddd;
     border-radius: 50%;
+    width: 50px;
+    height: 50px;
     cursor: pointer;
 
     :hover {
