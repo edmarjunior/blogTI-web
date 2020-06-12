@@ -72,7 +72,7 @@ export default function Cli() {
 
     function handleCurtirConteudo() {
         if (conteudo.curtido) {
-            toast('Este conteúdo já esta curtido, obrigado!');
+            toast.info('Este conteúdo já esta curtido, obrigado!');
             return;
         }
 
