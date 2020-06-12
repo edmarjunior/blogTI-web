@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import logo from "../../assets/logo.png";
+import logo from "../../assets/cubo.png";
 
 export const Container = styled.div`
   position: fixed;
@@ -9,8 +9,9 @@ export const Container = styled.div`
   width: 100%;
   padding: 5px 15px;
   border-bottom: 1px solid #ddd;
-  background-color: #fff;
+  background-color: #0e1e24;
   height: 200px;
+  color: #fff;
 `;
 
 export const Content = styled.div`
@@ -33,8 +34,8 @@ export const Content = styled.div`
 export const Navigation = styled.div`
   a {
     background-image: url(${logo});
-    width: 200px;
-    height: 54px;
+    width: 64px;
+    height: 64px;
     margin-right: 20px;
   }
 

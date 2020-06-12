@@ -68,6 +68,7 @@ export default function Header() {
             <Content>
                 <Navigation>
                     <Link to="/content/cli"></Link>
+                    <strong>Edmar Costa</strong>
                     <span>Como criar uma CLI em Node.js</span>
                 </Navigation>
                 <Profile>
