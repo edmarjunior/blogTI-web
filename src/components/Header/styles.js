@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import logo from "../../assets/cubo.png";
 
 export const Container = styled.div`
-  position: fixed;
+  position: absolute;
   z-index: 1;
   top: 0px;
   left: 0px;

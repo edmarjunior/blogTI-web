@@ -12,10 +12,7 @@ export const Card = styled.div`
     border-radius: 3px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 
-    h1 {
-        color: #4C0E95;
-    }
-
+    
     p {
         margin-top: 26px;
     }
