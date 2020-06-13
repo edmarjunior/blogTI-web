@@ -4,12 +4,12 @@ export const Card = styled.div`
     position: relative;
     z-index: 2;
     background-color: #fff;
-    width: 50%;
+    width: 80%;
     margin: 100px auto 10px;
-    padding: 10px;
+    padding: 24px;
 
     border: 1px solid #ddd;
-    border-radius: 3px;
+    border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 
     
