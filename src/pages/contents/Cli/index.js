@@ -27,7 +27,7 @@ import { openModal } from "../../../store/modules/auth/actions";
 
 import { Card } from '../../../components/Card/styles';
 import AuthModal from '../../../components/Modal/Auth';
-import { Aside, LikeButton, ListImage, ContainerRepository } from './styles';
+import { Aside, Article, LikeButton, ContainerRepository } from './styles';
 
 export default function Cli() {
     const dispatch = useDispatch();
@@ -116,7 +116,7 @@ export default function Cli() {
                  <AuthModal onSuccess={postCurtir}/>
              </Aside>
             <Card>
-            <article>
+            <Article>
                 <header>
                     <h1>{conteudo.titulo}</h1>
                     <span>Postado em {conteudo.dataPublicacaoFormatada}</span>
@@ -150,10 +150,8 @@ export default function Cli() {
                         (observe que esse comando também é uma CLI, sua função é abrir o VS Code para a gente, e como passamos o parâmetro “.” (ponto), estamos instruindo a 
                         CLI para abrir o VS dentro do diretório atual que está sendo executado 😉)
                     </p>
-                    <ListImage>
                         <img src={img2} alt="comando para abertura do VS code" />
                         <img src={img3} alt="vs code aberto" />
-                    </ListImage>
                 </section>
                 <section>
                     <h2>Pausa para reflexão</h2>
@@ -323,7 +321,7 @@ export default function Cli() {
                         </sup>
                     </p>
                 </section>
-            </article>
+            </Article>
         </Card>
         </>
     );

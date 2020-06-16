@@ -2,14 +2,23 @@ import styled from "styled-components";
 
 export const Card = styled.div`
     position: relative;
-    z-index: 2;
+    /* z-index: 2; */
     background-color: #fff;
-    width: 80%;
+
+    @media(min-width: 700px) {
+        width: 80%;
+    }
+
+    @media(max-width: 700px) {
+        width: 96%;
+    }
+
+
     margin: 100px auto 10px;
     padding: 24px;
 
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 4px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 
     

@@ -3,8 +3,18 @@ import styled, { css } from 'styled-components';
 export const Aside = styled.aside`
     position: fixed;
     z-index: 3;
-    top: 50%;
-    left: 5%;
+
+    @media(min-width: 730px) {
+        top: 50%;
+        left: 20px;
+    }
+
+    @media(max-width: 730px) {
+        top: 90%;
+        left: 91%;
+    }
+
+    
     border: 0;
     display: flex;
     align-items: center;
@@ -13,6 +23,12 @@ export const Aside = styled.aside`
         display: block;
         opacity: 0.6;
         font-size: 13px;
+    }
+`;
+
+export const Article = styled.article`
+    img {
+        max-width: 100%
     }
 `;
 
@@ -53,12 +69,12 @@ export const LikeButton =styled.button.attrs(props => ({
     `)}
 `;
 
-export const ListImage = styled.div`
-    display: flex;
-    img + img {
-        margin-left: 10px;
-    }
-`;
+// export const ListImage = styled.div`
+//     display: flex;
+//     img + img {
+//         margin-left: 10px;
+//     }
+// `;
 
 export const ContainerRepository = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.1);
