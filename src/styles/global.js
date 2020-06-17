@@ -20,4 +20,8 @@ export default createGlobalStyle`
         text-align: justify;
         line-height: 26px;
     }
+
+    img {
+        max-width: 100%
+    }
 `;

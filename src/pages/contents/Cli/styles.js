@@ -3,21 +3,18 @@ import styled, { css } from 'styled-components';
 export const Aside = styled.aside`
     position: fixed;
     z-index: 3;
+    display: flex;
+    align-items: center;
 
     @media(min-width: 730px) {
         top: 50%;
-        left: 20px;
+        left: 10%;
     }
 
     @media(max-width: 730px) {
         top: 90%;
-        left: 91%;
+        left: 80%;
     }
-
-    
-    border: 0;
-    display: flex;
-    align-items: center;
     
     span {
         display: block;
@@ -68,13 +65,6 @@ export const LikeButton =styled.button.attrs(props => ({
         }
     `)}
 `;
-
-// export const ListImage = styled.div`
-//     display: flex;
-//     img + img {
-//         margin-left: 10px;
-//     }
-// `;
 
 export const ContainerRepository = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.1);

@@ -1,25 +1,25 @@
 import styled from "styled-components";
 
 export const Card = styled.div`
-    position: relative;
+    /* position: relative; */
     /* z-index: 2; */
     background-color: #fff;
 
     @media(min-width: 700px) {
-        width: 80%;
+        width: 50%;
     }
 
     @media(max-width: 700px) {
-        width: 96%;
+        width: 98%;
     }
 
 
-    margin: 100px auto 10px;
-    padding: 24px;
+    margin: 50px auto 10px;
+    padding: 50px;
 
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 
     
     p {

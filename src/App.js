@@ -9,8 +9,6 @@ import GlobalStyle from './styles/global';
 import Routes from './routes';
 import history from './services/history';
 import Header from './components/Header';
-import Header2 from './components/Header2';
-import Footer from './components/Footer';
 import { store, persistor } from './store';
 
 function App() {
@@ -19,15 +17,13 @@ function App() {
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <Router history={history}>
-            <Header2 />
-            <Footer />
+            <Header />
             <Routes />
             <GlobalStyle />
             <ToastContainer autoClose={5000} position='bottom-left' />
           </Router>
         </PersistGate>
       </Provider>
-      
     </>
   );
 }

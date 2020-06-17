@@ -1,72 +1,107 @@
 import styled from 'styled-components';
-import logo from "../../assets/cubo.png";
+import { darken } from "polished";
 
-export const Container = styled.div`
-  position: absolute;
-  z-index: 1;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  padding: 5px 15px;
-  border-bottom: 1px solid #ddd;
-  background-color: #0e1e24;
-  height: 200px;
-  color: #fff;
-`;
-
-export const Content = styled.div`
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  div:first-child {
-    margin-left: 65px;
-  }
-
-  > div {
+export const HeaderCss = styled.header`
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #6747c7;
+    color: #fff;
     display: flex;
-    align-items: center;
-  }
+    justify-content: center;
+   
+    > div {
+        @media (min-width: 700px) {
+            width: 80%;
+        }
+
+        @media (max-width: 700px) {
+            width: 100%;
+        }
+
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        div.name {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+
+            strong {
+                margin-right: 5px;
+            }
+
+            span {
+                opacity: 0.5;
+            }
+
+            strong, span {
+                display: block;
+                min-width: 120px;
+            }
+        }
+    }
 `;
 
-export const Navigation = styled.div`
-  a {
-    background-image: url(${logo});
-    width: 64px;
-    height: 64px;
-    margin-right: 20px;
-  }
-
-  span {
-    border-left: 1px solid #ddd;
-    margin-left: 15px;
-    padding-left: 15px;
-  }
-`;
-  
 export const Profile = styled.div`
-  div {
-    text-align: right;
+    display: flex;
 
-    span {
-      display: block;
-      opacity: 0.5;
-      font-size: 12px;
+    > div {
+        text-align: right;
+        flex-direction: column;
+        min-width: 160px;
+        span {
+            display: block;
+            opacity: 0.5;
+            font-size: 12px;
+        }
     }
-  }
 
-  img {
-    margin-left: 10px;
-    border: 2px solid #ddd;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
+    img {
+        margin-left: 10px;
+        border: 2px solid #ddd;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
 
-    :hover {
-      border-color: #8ec9ff;
+        :hover {
+            border-color: #8ec9ff;
+        }
     }
-  }
 `
+
+export const Menu = styled.div`
+    margin-top: 70px;
+    background: #4F3AB7;
+    padding: 10px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    
+    nav {
+        @media (min-width: 700px) {
+            width: 80%;
+        }
+
+        @media (max-width: 700px) {
+            width: 100%;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            padding: 14px;
+            opacity: 0.5;
+
+            :hover {
+                background: ${darken(0.1, '#4F3AB7')};
+                opacity: 1;
+            }
+        }
+    }
+`;

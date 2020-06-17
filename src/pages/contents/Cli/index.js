@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MdFavorite } from 'react-icons/md';
 import { parseISO, format } from "date-fns";
 import pt from "date-fns/locale/pt";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 
 import img1 from './assets/img1.png';
@@ -23,21 +23,19 @@ import img15 from './assets/img15.png';
 import img16 from './assets/img16.png';
 
 import api from '../../../services/api';
-import { openModal } from "../../../store/modules/auth/actions";
+import { setConteudo } from "../../../store/modules/conteudo/actions";
 
-import { Card } from '../../../components/Card/styles';
-import AuthModal from '../../../components/Modal/Auth';
-import { Aside, Article, LikeButton, ContainerRepository } from './styles';
+import Content from '../../_layouts/content';
+import { ContainerRepository } from './styles';
 
 export default function Cli() {
     const dispatch = useDispatch();
     const usuario = useSelector(state => state.usuario.perfil);
-    const [conteudo, setConteudo] = useState({});
+    const conteudo = useSelector(state => state.conteudo.dados);
     const [repo, setRepo] = useState({});
 
     useEffect(() => {
         async function carregaDados() {
-
             // api do gitHub
             const responseRepo  = await api.get('https://api.github.com/repos/edmarjunior/calculadora-cli');
             const { name, html_url, description } = responseRepo.data;
@@ -61,62 +59,18 @@ export default function Cli() {
                 }
             });
             
-            setConteudo({
+            dispatch(setConteudo({
                 ...data,
                 dataPublicacaoFormatada: format(parseISO(data.data_publicacao, { locale: pt }), 'dd/MM/yyyy')
-            });
+            }));
         }
         
         carregaDados();
     }, [dispatch, usuario]);
 
-    function handleCurtirConteudo() {
-        if (conteudo.curtido) {
-            toast.info('Este conteúdo já esta curtido, obrigado!');
-            return;
-        }
-
-        if (usuario?.email) {
-            postCurtir(usuario);
-            return;
-        }
-
-        dispatch(openModal());
-    }
-
-    async function postCurtir(usuarioCallBack) {
-        try {
-            const response = await api.post('curtida-conteudo/1', null, {
-                headers: {
-                    Authorization: `bearer ${usuarioCallBack.token}`
-                }
-            });
-            
-            setConteudo({
-                ...conteudo,
-                curtido: true,
-                quantidade_curtidas: response.data.curtido_anteriormente 
-                    ? conteudo.quantidade_curtidas 
-                    :  conteudo.quantidade_curtidas + 1 
-            });
-
-            toast.info(response.data.msg ?? 'Obrigado por curtir esse post');
-        } catch (err) {
-            toast.error(err.response?.data?.error ?? 'Desculpe! Ocorreu um erro interno, por favor tente mais tarde');
-        }
-    }
-
     return (
-        <>
-            <Aside>
-                 <LikeButton type="button" curtido={conteudo.curtido} onClick={handleCurtirConteudo}>
-                     <MdFavorite color="#ff0000" size={30} />
-                 </LikeButton>
-                 <span>{conteudo.quantidade_curtidas}</span>
-                 <AuthModal onSuccess={postCurtir}/>
-             </Aside>
-            <Card>
-            <Article>
+        <Content>
+            <article>
                 <header>
                     <h1>{conteudo.titulo}</h1>
                     <span>Postado em {conteudo.dataPublicacaoFormatada}</span>
@@ -321,8 +275,7 @@ export default function Cli() {
                         </sup>
                     </p>
                 </section>
-            </Article>
-        </Card>
-        </>
+            </article>
+        </Content>
     );
 }

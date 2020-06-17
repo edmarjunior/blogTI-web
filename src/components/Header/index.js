@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { MdForward} from 'react-icons/md'
 import { Modal, Button } from 'react-bootstrap';
@@ -8,7 +7,7 @@ import { toast } from "react-toastify";
 
 import api from '../../services/api';
 import { createUsuario } from "../../store/modules/usuario/actions";
-import { Container, Content, Navigation, Profile} from './styles';
+import { HeaderCss, Profile, Menu} from './styles';
 
 export default function Header() {
     const dispatch = useDispatch();
@@ -64,74 +63,81 @@ export default function Header() {
     }
 
     return (
-        <Container>
-            <Content>
-                <Navigation>
-                    <Link to="/content/cli"></Link>
-                    <strong>Edmar Costa</strong>
-                    <span>Como criar uma CLI em Node.js</span>
-                </Navigation>
-                <Profile>
-                    <div>
-                        <strong>{usuario?.nome ?? 'Bem vindo Anônimo'}</strong>
-                        {usuario?.email && <span>{usuario.email}</span>}
-                        {!usuario?.email && <span>faça login por aqui <MdForward /></span>}
+        <>
+            <HeaderCss>
+                <div>
+                    <div className="name">
+                        <strong>EDMAR COSTA</strong>
+                        <span>Conteúdos sobre T.I</span>
                     </div>
-                    <img onClick={openModal} src= {usuario?.avatar_url ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} alt="avatar do usuário"/>
-                    {!usuario && (
-                        <Modal show={showAuthModal} onHide={closeModal}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Login social</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
+                    <Profile>
+                        <div>
+                            <strong>{usuario?.nome ?? 'Bem vindo'}</strong>
+                            {usuario?.email && <span>{usuario.email}</span>}
+                            {!usuario?.email && <span>faça login <MdForward /></span>}
+                        </div>
+                        <img onClick={openModal} src= {usuario?.avatar_url ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} alt="avatar do usuário"/>
+                    </Profile>
+                </div>
+            </HeaderCss>
+            <Menu>
+                <nav>
+                    <a href="/" >Conteúdos</a>
+                    <a href="/" >Sobre</a>
+                </nav>
+            </Menu>
+
+            {!usuario && (
+                <Modal show={showAuthModal} onHide={closeModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Login social</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                    <div className="row" style={{ 'paddingTop': "20px" }}>
+                        <div className="col-sm-12">
+                            Obrigado por interagir com este conteúdo, favor escolher sua forma de acesso.
+                        </div>
+                    </div>
+                    <div className="row" style={{ "paddingTop": "20px", "textAlign":  "center" }}>
+                        <div className="col-sm-12">
+                            <GoogleLogin
+                                clientId={clientId}
+                                buttonText="Login with Google"
+                                onSuccess={onSuccessAuthLogin}
+                                onFailure={onFailureAuth} >
+                            </GoogleLogin>
+                        </div>
+                    </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={closeModal}>
+                            Cancelar
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            )}
+            {usuario && (
+                <Modal show={showLogoffModal} onHide={closeModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Encerrar sessão</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
                         <div className="row" style={{ 'paddingTop': "20px" }}>
                             <div className="col-sm-12">
-                                Obrigado por interagir com este conteúdo, favor escolher sua forma de acesso.
+                                Olá <strong>{usuario.nome}</strong>, para encerrar sua sessão clique na opçao "Encerrar sessão"
                             </div>
                         </div>
-                        <div className="row" style={{ "paddingTop": "20px", "textAlign":  "center" }}>
-                            <div className="col-sm-12">
-                                <GoogleLogin
-                                    clientId={clientId}
-                                    buttonText="Login with Google"
-                                    onSuccess={onSuccessAuthLogin}
-                                    onFailure={onFailureAuth} >
-                                </GoogleLogin>
-                            </div>
-                        </div>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={closeModal}>
-                                Cancelar
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
-                    )}
-                    {usuario && (
-                        <Modal show={showLogoffModal} onHide={closeModal}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Encerrar sessão</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <div className="row" style={{ 'paddingTop': "20px" }}>
-                                    <div className="col-sm-12">
-                                        Olá <strong>{usuario.nome}</strong>, para encerrar sua sessão clique na opçao "Encerrar sessão"
-                                    </div>
-                                </div>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={closeModal}>
-                                    Cancelar
-                                </Button>
-                                <Button variant="primary" onClick={handleLogoff}>
-                                    Encerrar sessão
-                                </Button>
-                            </Modal.Footer>
-                        </Modal>
-                    )}
-                    
-                </Profile>
-            </Content>
-        </Container>
-    )
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={closeModal}>
+                            Cancelar
+                        </Button>
+                        <Button variant="primary" onClick={handleLogoff}>
+                            Encerrar sessão
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            )}
+        </>
+    );
 }
