@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+    margin-top: 50px;
     height: 50px;
-    background: linear-gradient(-90deg, #fff, #4C0E95);
     width: 100%;
     align-items: center;
     justify-content: flex-end;
-    color: #4C0E95;
+    color: #fff;
 
     a, svg {
         opacity: 0.7;
@@ -14,7 +14,20 @@ export const Container = styled.div`
         cursor: pointer;
 
         :hover {
-            opacity: 1;
+            opacity: 1; 
+        }
+    }
+
+    div.content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #333333;
+        padding: 20px;
+
+        span.info {
+            font-size: 14px;
+            opacity:  0.7;
         }
     }
 `;

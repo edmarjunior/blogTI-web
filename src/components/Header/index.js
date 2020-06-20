@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 import api from '../../services/api';
 import { createUsuario } from "../../store/modules/usuario/actions";
-import { HeaderCss, Profile, Menu} from './styles';
+import { HeaderCss, Content, Profile, Menu} from './styles';
 
 export default function Header() {
     const dispatch = useDispatch();
@@ -65,20 +65,20 @@ export default function Header() {
     return (
         <>
             <HeaderCss>
-                <div>
+                <Content>
                     <div className="name">
-                        <strong>EDMAR COSTA</strong>
+                        <strong>Edmar Costa</strong>
                         <span>Conteúdos sobre T.I</span>
                     </div>
                     <Profile>
-                        <div>
+                        <div className="info_usuario">
                             <strong>{usuario?.nome ?? 'Bem vindo'}</strong>
                             {usuario?.email && <span>{usuario.email}</span>}
                             {!usuario?.email && <span>faça login <MdForward /></span>}
                         </div>
                         <img onClick={openModal} src= {usuario?.avatar_url ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} alt="avatar do usuário"/>
                     </Profile>
-                </div>
+                </Content>
             </HeaderCss>
             <Menu>
                 <nav>

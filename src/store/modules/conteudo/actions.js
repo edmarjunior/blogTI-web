@@ -1,7 +1,7 @@
-export function curtirConteudo(id, token) {
+export function curtirConteudo(id) {
     return {
         type: '@conteudo/curtir',
-        payload: {},
+        payload: { id },
     };
 }
 

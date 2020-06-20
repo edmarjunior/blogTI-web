@@ -11,38 +11,45 @@ export const HeaderCss = styled.header`
     color: #fff;
     display: flex;
     justify-content: center;
-   
-    > div {
+`;
+
+export const Content = styled.div`
+    @media (min-width: 700px) {
+        width: 50%;
+    }
+
+    @media (max-width: 700px) {
+        width: 100%;
+    }
+
+    padding: 10px 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > div:first-child {
+        display: flex;
+
         @media (min-width: 700px) {
-            width: 80%;
+            flex-direction: row;
+            align-items: center;
         }
 
         @media (max-width: 700px) {
-            width: 100%;
+            flex-direction: column;
         }
 
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        strong {
+            margin-right: 5px;
+        }
 
-        div.name {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
+        span {
+            opacity: 0.5;
+            font-size: 13px;
+        }
 
-            strong {
-                margin-right: 5px;
-            }
-
-            span {
-                opacity: 0.5;
-            }
-
-            strong, span {
-                display: block;
-                min-width: 120px;
-            }
+        strong, span {
+            display: block;
         }
     }
 `;
@@ -53,13 +60,19 @@ export const Profile = styled.div`
     > div {
         text-align: right;
         flex-direction: column;
-        min-width: 160px;
+
         span {
             display: block;
             opacity: 0.5;
             font-size: 12px;
         }
     }
+
+    /* @media(max-width: 700px) {
+        div.info_usuario {
+            display: none;
+        }
+    } */
 
     img {
         margin-left: 10px;
@@ -76,16 +89,17 @@ export const Profile = styled.div`
 `
 
 export const Menu = styled.div`
+    width: 100%;
     margin-top: 70px;
     background: #4F3AB7;
-    padding: 10px;
+    padding: 10px 3px;
     font-size: 16px;
     display: flex;
     justify-content: center;
     
     nav {
         @media (min-width: 700px) {
-            width: 80%;
+            width: 50%;
         }
 
         @media (max-width: 700px) {
@@ -95,7 +109,7 @@ export const Menu = styled.div`
         a {
             color: #fff;
             text-decoration: none;
-            padding: 14px;
+            padding: 13px;
             opacity: 0.5;
 
             :hover {

@@ -1,26 +1,20 @@
 import styled from "styled-components";
 
 export const Card = styled.div`
-    /* position: relative; */
-    /* z-index: 2; */
     background-color: #fff;
+    margin: 50px auto 10px;
+    padding: 50px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 
     @media(min-width: 700px) {
         width: 50%;
     }
 
     @media(max-width: 700px) {
-        width: 98%;
+        width: 99%;
     }
-
-
-    margin: 50px auto 10px;
-    padding: 50px;
-
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-
     
     p {
         margin-top: 26px;
@@ -48,6 +42,5 @@ export const Card = styled.div`
     ul {
         margin-top: 20px;
         margin-left: 20px;
-
     }
 `;
