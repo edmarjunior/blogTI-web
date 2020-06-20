@@ -1,29 +1,29 @@
 import styled, { css } from 'styled-components';
 
 export const Aside = styled.aside`
-position: fixed;
-z-index: 3;
-display: flex;
-align-items: center;
+    position: fixed;
+    z-index: 3;
+    display: flex;
+    align-items: center;
 
-@media(min-width: 730px) {
-    top: 50%;
-    left: 10%;
-}
+    @media(min-width: 730px) {
+        top: 50%;
+        left: 10%;
+    }
 
-@media(max-width: 730px) {
-    top: 90%;
-    left: 80%;
-}
+    @media(max-width: 730px) {
+        top: 90%;
+        left: 80%;
+    }
 
-span {
-    display: block;
-    opacity: 0.6;
-    font-size: 13px;
-}
+    span {
+        display: block;
+        opacity: 0.6;
+        font-size: 13px;
+    }
 `
 
-export const LikeButton =styled.button.attrs(props => ({
+export const LikeButton = styled.button.attrs(props => ({
     title:  props.curtido ? 'Obrigado por curtir esse post' : 'Curtir',
 }))`
     background: transparent;

@@ -7,6 +7,7 @@ export const Card = styled.div`
     border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
 
     @media(min-width: 700px) {
         width: 50%;

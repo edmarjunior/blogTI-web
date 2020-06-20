@@ -218,28 +218,28 @@ export default function Cli() {
                 </p>
             </section>
             <section>
-                    <h2>Finalizando</h2>
-                    <p>
-                        Com isso finalizamos esse post, espero ter ajudado com algum conhecimento.
-                    </p>
-                    <p>
-                        O conteúdo da nossa aplicação está disponivel no repositório abaixo
-                    </p>
-                    <ContainerRepository>
-                        <img src={repo.avatar_url} alt="avatar do proprietário do repositório"/>
-                        <a target="_blank" rel="noopener noreferrer" href={repo.html_url} >{repo.name}</a>
-                        <span>{repo.description}</span>
-                    </ContainerRepository>
-                    <p>
-                        Até a próxima, valeu galera!
-                    </p>
-                    <p>
-                        Dedico este post à <strong>Tábata Costa</strong>, obrigado por tudo 
-                        <sup>
-                            <MdFavorite color="#ff0000" size={20} style={{ margin: '0 3px'}}/>
-                        </sup>
-                    </p>
-                </section>
+                <h2>Finalizando</h2>
+                <p>
+                    Com isso finalizamos esse post, espero ter ajudado com algum conhecimento.
+                </p>
+                <p>
+                    O conteúdo da nossa aplicação está disponivel no repositório abaixo
+                </p>
+                <ContainerRepository>
+                    <img src={repo.avatar_url} alt="avatar do proprietário do repositório"/>
+                    <a target="_blank" rel="noopener noreferrer" href={repo.html_url} >{repo.name}</a>
+                    <span>{repo.description}</span>
+                </ContainerRepository>
+                <p>
+                    Até a próxima, valeu galera!
+                </p>
+                <p>
+                    Dedico este post à <strong>Tábata Costa</strong>, obrigado por tudo 
+                    <sup>
+                        <MdFavorite color="#ff0000" size={20} style={{ margin: '0 3px'}}/>
+                    </sup>
+                </p>
+            </section>
         </Content>
     );
 }
