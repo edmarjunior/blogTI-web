@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { MdForward} from 'react-icons/md'
 import { Modal, Button } from 'react-bootstrap';
@@ -82,8 +83,8 @@ export default function Header() {
             </HeaderCss>
             <Menu>
                 <nav>
-                    <a href="/" >Conteúdos</a>
-                    <a href="/" >Sobre</a>
+                    <Link to="/" >Conteúdos</Link>
+                    <Link to="/about" >Sobre</Link>
                 </nav>
             </Menu>
 
