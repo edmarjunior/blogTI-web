@@ -77,7 +77,7 @@ export default function Header() {
                             {usuario?.email && <span>{usuario.email}</span>}
                             {!usuario?.email && <span>faça login <MdForward /></span>}
                         </div>
-                        <img onClick={openModal} src= {usuario?.avatar_url ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} alt="avatar do usuário"/>
+                        <img className="round" onClick={openModal} src= {usuario?.avatar_url ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} alt="avatar do usuário"/>
                     </Profile>
                 </Content>
             </HeaderCss>

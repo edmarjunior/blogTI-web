@@ -16,6 +16,15 @@ export default createGlobalStyle`
         background-color: #f0f0f0;
     }
 
+    a {
+        text-decoration: none !important;
+        opacity: 0.6;
+        
+        :hover {
+            opacity: 1;
+        }
+    }
+
     p, li {
         text-align: justify;
         line-height: 26px;
@@ -23,6 +32,13 @@ export default createGlobalStyle`
 
     img {
         max-width: 100%
+    }
+
+    img.round {
+        border-radius: 50%;
+        border: 2px solid #eee; 
+        box-shadow: none;
+        padding: 3px;
     }
 
     .card {

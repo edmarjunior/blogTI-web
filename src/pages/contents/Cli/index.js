@@ -226,7 +226,7 @@ export default function Cli() {
                     O conteúdo da nossa aplicação está disponivel no repositório abaixo
                 </p>
                 <ContainerRepository>
-                    <img src={repo.avatar_url} alt="avatar do proprietário do repositório"/>
+                    <img className="round" width={100} height={100} src={repo.avatar_url} alt="avatar do proprietário do repositório"/>
                     <a target="_blank" rel="noopener noreferrer" href={repo.html_url} >{repo.name}</a>
                     <span>{repo.description}</span>
                 </ContainerRepository>

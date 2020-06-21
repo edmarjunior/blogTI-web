@@ -13,25 +13,9 @@ export const ContainerRepository = styled.div`
         background: #eee;
     }
 
-    img {
-        border: 0;
-        box-shadow: none;
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        border: 2px solid #eee; 
-    }
-
     a {
-        text-decoration: none;
         margin: 5px 0;
         font-size: 24px;
-        opacity: 0.6;
-
-        :hover {
-            opacity: 1;
-
-        }
     }
 
     span {

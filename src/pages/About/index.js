@@ -6,7 +6,7 @@ export default function About() {
     return (
         <div className="card">
             <Content>
-                <img src={meuAvatar} alt="foto perfil edmar" />
+                <img className="round" src={meuAvatar} alt="foto perfil edmar" />
                 <strong>Edmar Costa</strong>
                 <span>Software Developer at <a target="_blank" rel="noopener noreferrer " href="https://smn.com.br/">SMNTI</a></span>
                 <span>Franca, São Paulo, Brasil</span>

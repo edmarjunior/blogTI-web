@@ -68,18 +68,11 @@ export const Profile = styled.div`
         }
     }
 
-    /* @media(max-width: 700px) {
-        div.info_usuario {
-            display: none;
-        }
-    } */
-
     img {
         margin-left: 10px;
-        border: 2px solid #ddd;
-        border-radius: 50%;
         width: 50px;
         height: 50px;
+        padding: 0 !important;
         cursor: pointer;
 
         :hover {
@@ -108,13 +101,10 @@ export const Menu = styled.div`
 
         a {
             color: #fff;
-            text-decoration: none;
             padding: 13px;
-            opacity: 0.5;
 
             :hover {
                 background: ${darken(0.1, '#4F3AB7')};
-                opacity: 1;
             }
         }
     }
