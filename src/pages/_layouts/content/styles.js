@@ -59,3 +59,33 @@ export const LikeButton = styled.button.attrs(props => ({
         }
     `)}
 `;
+
+export const Article = styled.article`
+    p {
+        margin-top: 26px;
+    }
+
+    > header {
+        span {
+            display: block;
+            opacity: 0.5;
+            font-size: 12px;
+        }
+    }
+
+    section {
+        margin-top: 40px;
+    }
+
+    img {
+        border: 1px solid #ccc;
+        box-shadow: 2px 2px 5px rgba(0,0,0,.5);
+        padding: 3px;
+        border-radius: 3px;
+    }
+
+    ul {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+`;

@@ -7,12 +7,11 @@ import { MdFavorite } from 'react-icons/md';
 
 import api from '../../../services/api';
 import { openModal } from "../../../store/modules/auth/actions";
-import { Card } from '../../../components/Card/styles';
 import AuthModal from '../../../components/Modal/Auth';
 import { Loading } from '../../../components/Loading/styles';
 import Footer from '../../../components/Footer';
 
-import { Aside, LikeButton } from './styles';
+import { Aside, LikeButton, Article } from './styles';
 
 export default function Content({ children, idConteudo }) {
     const dispatch = useDispatch();
@@ -90,8 +89,8 @@ export default function Content({ children, idConteudo }) {
                         <span>{conteudo.quantidade_curtidas}</span>
                         <AuthModal onSuccess={handleCurtir}/>
                     </Aside>
-                    <Card>
-                        <article>
+                    <div className="card">
+                        <Article>
                             <header>
                                 <h1>{conteudo.titulo}</h1>
                                 <span>Postado em {conteudo.dataPublicacaoFormatada}</span>
@@ -99,8 +98,8 @@ export default function Content({ children, idConteudo }) {
                                 <p>{conteudo.resumo}</p>
                             </header>
                             {children}
-                        </article>
-                    </Card>
+                        </Article>
+                    </div>
                     <Footer />
                 </>
             )}

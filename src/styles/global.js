@@ -24,4 +24,23 @@ export default createGlobalStyle`
     img {
         max-width: 100%
     }
+
+    .card {
+        background-color: #fff;
+        margin: 50px auto 10px;
+        padding: 50px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        word-wrap: break-word;
+
+        @media(min-width: 700px) {
+            width: 50%;
+        }
+
+        @media(max-width: 700px) {
+            width: 100%;
+        }
+    }
+
 `;
