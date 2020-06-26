@@ -9,6 +9,7 @@ import api from '../../../services/api';
 import { openModal } from "../../../store/modules/auth/actions";
 import AuthModal from '../../../components/Modal/Auth';
 import { Loading } from '../../../components/Loading/styles';
+import Comments from '../../../components/Comments';
 import Footer from '../../../components/Footer';
 
 import { Aside, LikeButton, Article } from './styles';
@@ -33,9 +34,72 @@ export default function Content({ children, idConteudo }) {
                 }
             });
 
+            const comentarios = [
+                {
+                    id: 1,
+                    nome: 'Edmar Costa',
+                    conteudo: 'Sucesso menino você merece',
+                    quantidade_curtidas: 5,
+                    curtido: true,
+                    exibirRespostas: false,
+                    comentarios: []
+                },
+                {
+                    id: 2,
+                    nome: 'Tábata Costa',
+                    conteudo: 'Sucesso menino você merece',
+                    quantidade_curtidas: 6,
+                    curtido: true,
+                    exibirRespostas: false,
+                    comentarios: [
+                        {
+                            id: 5,
+                            nome: 'Edmar Costa',
+                            conteudo: 'Obrigado Tábata',
+                            quantidade_curtidas: 5,
+                            curtido: true,
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    nome: 'Bruno Alves',
+                    conteudo: 'É importante questionar o quanto a contínua expansão de nossa atividade agrega valor ao estabelecimento de todos os recursos funcionais envolvidos.',
+                    quantidade_curtidas: 3,
+                    curtido: false,
+                    exibirRespostas: false,
+                    comentarios: [
+                        {
+                            id: 6,
+                            nome: 'Edmar Costa',
+                            conteudo: 'Obrigado Bruno',
+                            quantidade_curtidas: 5,
+                            curtido: true,
+                        },
+                        {
+                            id: 7,
+                            nome: 'Bruno Alves',
+                            conteudo: 'É como eu disse, contínua expansão de nossa atividade agrega valor ao estabelecimento',
+                            quantidade_curtidas: 5,
+                            curtido: true,
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    nome: 'João Gabriel',
+                    conteudo: 'É o que? meeeeeeee',
+                    quantidade_curtidas: 5,
+                    curtido: false,
+                    exibirRespostas: false,
+                    comentarios: []
+                },
+            ].sort((a, b) =>  a.id > b.id ? -1 : 1 );
+
             setConteudo({
                 ...data,
                 dataPublicacaoFormatada: format(parseISO(data.data_publicacao, { locale: pt }), 'dd/MM/yyyy'),
+                comentarios
             });
 
             setLoading(false);
@@ -100,6 +164,7 @@ export default function Content({ children, idConteudo }) {
                             {children}
                         </Article>
                     </div>
+                    <Comments comments={conteudo.comentarios} idConteudo={conteudo.id}></Comments>
                     <Footer />
                 </>
             )}

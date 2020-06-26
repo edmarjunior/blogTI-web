@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    margin-top: 50px;
-    height: 50px;
     width: 100%;
     align-items: center;
     justify-content: flex-end;
     color: #fff;
+
+    border-top: 1px solid #fff;
 
     a, svg {
         opacity: 0.7;
