@@ -88,20 +88,6 @@ export const Commented = styled.div`
     }
 
     div.options {
-        button {
-            background: none;
-            border: 0;
-            color: #fff;
-            opacity: 0.6;
-            font-size: 12px;
-            cursor: pointer;
-
-            :hover {
-                opacity: 1;
-                text-decoration: underline;
-            }
-        }
-
         button + button {
             margin-left: 5px;
 
@@ -110,6 +96,21 @@ export const Commented = styled.div`
                 border-left: 1px solid #ddd;
                 padding-right: 5px;
             }
+        }
+    }
+
+    .btn-action {
+        align-self: center;
+        background: none;
+        border: 0;
+        color: #fff;
+        opacity: 0.6;
+        font-size: 12px;
+        cursor: pointer;
+
+        :hover {
+            opacity: 1;
+            text-decoration: underline;
         }
     }
 
@@ -153,8 +154,10 @@ export const Response = styled.div`
         margin-left: 20px;
 
         > div {
-            margin-bottom: 5px;
+            /* margin-bottom: 5px;
             margin-left: 5px;
+            margin-right: 5px; */
+            margin: 0 5px 5px;
             background: ${lighten(0.1, '#1c1e21')};
             padding: 8px;
             border-radius: 5px;

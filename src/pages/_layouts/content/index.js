@@ -34,67 +34,12 @@ export default function Content({ children, idConteudo }) {
                 }
             });
 
-            const comentarios = [
-                {
-                    id: 1,
-                    nome: 'Edmar Costa',
-                    conteudo: 'Sucesso menino você merece',
-                    quantidade_curtidas: 5,
-                    curtido: true,
-                    exibirRespostas: false,
-                    comentarios: []
-                },
-                {
-                    id: 2,
-                    nome: 'Tábata Costa',
-                    conteudo: 'Sucesso menino você merece',
-                    quantidade_curtidas: 6,
-                    curtido: true,
-                    exibirRespostas: false,
-                    comentarios: [
-                        {
-                            id: 5,
-                            nome: 'Edmar Costa',
-                            conteudo: 'Obrigado Tábata',
-                            quantidade_curtidas: 5,
-                            curtido: true,
-                        }
-                    ]
-                },
-                {
-                    id: 3,
-                    nome: 'Bruno Alves',
-                    conteudo: 'É importante questionar o quanto a contínua expansão de nossa atividade agrega valor ao estabelecimento de todos os recursos funcionais envolvidos.',
-                    quantidade_curtidas: 3,
-                    curtido: false,
-                    exibirRespostas: false,
-                    comentarios: [
-                        {
-                            id: 6,
-                            nome: 'Edmar Costa',
-                            conteudo: 'Obrigado Bruno',
-                            quantidade_curtidas: 5,
-                            curtido: true,
-                        },
-                        {
-                            id: 7,
-                            nome: 'Bruno Alves',
-                            conteudo: 'É como eu disse, contínua expansão de nossa atividade agrega valor ao estabelecimento',
-                            quantidade_curtidas: 5,
-                            curtido: true,
-                        }
-                    ]
-                },
-                {
-                    id: 4,
-                    nome: 'João Gabriel',
-                    conteudo: 'É o que? meeeeeeee',
-                    quantidade_curtidas: 5,
-                    curtido: false,
-                    exibirRespostas: false,
-                    comentarios: []
-                },
-            ].sort((a, b) =>  a.id > b.id ? -1 : 1 );
+            // buscando comentários
+            const { comentarios } = await (await api.get(`/conteudos/${idConteudo}/comentarios`, {
+                headers: {
+                    user_id:  usuario?.id,
+                }
+            })).data;
 
             setConteudo({
                 ...data,
@@ -121,7 +66,7 @@ export default function Content({ children, idConteudo }) {
         }
 
         try {
-            const response = await api.post('/curtida-conteudo/1', null, {
+            const response = await api.post(`/curtida-conteudo/${idConteudo}`, null, {
                 headers: {
                     Authorization: `bearer ${usuarioLogado.token}`
                 }
@@ -164,7 +109,7 @@ export default function Content({ children, idConteudo }) {
                             {children}
                         </Article>
                     </div>
-                    <Comments comments={conteudo.comentarios} idConteudo={conteudo.id}></Comments>
+                    <Comments comentarios={conteudo.comentarios} idConteudo={conteudo.id}></Comments>
                     <Footer />
                 </>
             )}
