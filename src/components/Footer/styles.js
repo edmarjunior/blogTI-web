@@ -2,10 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     width: 100%;
-    align-items: center;
-    justify-content: flex-end;
     color: #fff;
-
     border-top: 1px solid #fff;
 
     a, svg {
@@ -20,10 +17,15 @@ export const Container = styled.div`
 
     div.content {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         align-items: center;
         background: #333333;
         padding: 20px;
+
+
+        > div + div {
+            margin-top: 10px;
+        }
 
         span.info {
             font-size: 14px;
