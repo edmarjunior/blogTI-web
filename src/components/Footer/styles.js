@@ -25,6 +25,7 @@ export const Container = styled.div`
 
         > div + div {
             margin-top: 10px;
+            text-align: center;
         }
 
         span.info {
