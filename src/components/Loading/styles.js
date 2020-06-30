@@ -9,6 +9,7 @@ export const Loading = styled(MdDonutLarge).attrs(props => ({
     opacity: .7;
 
     animation: rotating 0.6s linear infinite;
+
     @keyframes rotating {
         from {
             transform: rotate(0deg);
@@ -23,6 +24,7 @@ export const Loading = styled(MdDonutLarge).attrs(props => ({
         position: absolute;
         top: 50%;
         left: 50%;
+        margin-left: -20px;
     `}
 
 `;
