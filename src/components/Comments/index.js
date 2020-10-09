@@ -13,7 +13,7 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
     const dispatch = useDispatch();
     const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
     const usuario = useSelector(state => state.usuario.perfil);
-    const avatar_url = usuario?.avatar_url ?? 'https://api.adorable.io/avatars/50/abott@adorable.png';
+    const avatarUrl = usuario?.avatarUrl ?? 'https://api.adorable.io/avatars/50/abott@adorable.png';
 
     const [comentarios, setComentarios] = useState(comentariosParam);
     const [descricaoComentario, setDescricaoComentario] = useState('');
@@ -85,30 +85,38 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
     }
 
     async function criarComentario({ isComentario, descricao, idComentarioSuperior, usuarioLogado }) {
-        const response = await api.post(`conteudos/${idConteudo}/comentarios`, 
+        const { data: response} = await api.post('comments', 
             {
-                descricao,
-                id_comentario_superior: idComentarioSuperior,
+                topCommentId: idComentarioSuperior,
+                contentId: idConteudo,
+                description: descricao,
             },
             {
                 headers: {
-                    Authorization: `bearer ${usuarioLogado.token}`
+                    Authorization: `bearer ${usuarioLogado.accessToken}`
                 }
             }
         );
 
+        if (!response.ok) {
+            toast.info(response.messages[0]);
+            return;
+        }
+
+        console.log({ usuarioLogado, isComentario })
+
         if (isComentario) {
             setComentarios([
                 {
-                    ...response.data,
+                    ...response.content,
                     exibirRespostas: true,
                     novo: true,
-                    permite_editar: true,
-                    usuario: {
-                        nome: usuarioLogado.nome,
-                        avatar_url: usuarioLogado.avatar_url,
+                    allowEdit: true,
+                    user: {
+                        name: usuarioLogado.name,
+                        avatarUrl: usuarioLogado.avatarUrl,
                     },
-                    respostas: [],
+                    answers: [],
                 },
                 ...comentarios, 
             ]);
@@ -122,12 +130,12 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
 
         // resposta
         const respostaCadastrada = {
-            ...response.data,
+            ...response.content,
             novo: true,
-            permite_editar: true,
-            usuario: {
-                nome: usuarioLogado.nome,
-                avatar_url: usuarioLogado.avatar_url,
+            allowEdit: true,
+            user: {
+                name: usuarioLogado.name,
+                avatarUrl: usuarioLogado.avatarUrl,
             }
         }
 
@@ -137,7 +145,7 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
                     ...comentario,
                     responseValue: '',
                     exibirRespostas: true,
-                    respostas: [respostaCadastrada, ...comentario.respostas]
+                    answers: [respostaCadastrada, ...comentario.answers]
                 } 
                 : comentario
         }));
@@ -146,14 +154,23 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
     }
 
     async function editarComentario({ id, descricao, usuarioLogado, isComentario }) {
-        await api.put(`comentarios/${id}`, { descricao}, {
+        const { data: response } = await api.put(`/comments/${id}`, 
+            { 
+                description: descricao 
+            }, 
+            {
             headers: {
-                Authorization: `bearer ${usuarioLogado.token}`
+                Authorization: `bearer ${usuarioLogado.accessToken}`
             }
         });
 
+        if (!response.ok) {
+            toast.info(response.messages[0]);
+            return;
+        }
+
         const camposAtualizados = {
-            descricao,
+            description: descricao,
             novo: true,
             responseValue: '',
             editando: false,
@@ -182,7 +199,7 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
                     responseValue: '',
                     editandoRespostaId: null,
                     editando: false,
-                    respostas: comentario.respostas.map(resposta => {
+                    answers: comentario.answers.map(resposta => {
                         return resposta.id === id
                             ? {
                                 ...resposta,
@@ -288,21 +305,26 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
     // autenticação
 
     async function onSuccessAuthLogin(responseAuth) {
-        const { email, name: nome, imageUrl: avatar_url } = responseAuth.profileObj;
+        const { email, name, imageUrl: avatarUrl } = responseAuth.profileObj;
 
-        const response = await api.post('/usuarios', { 
+        const { data: response } = await api.post('/users', { 
             email, 
-            nome, 
-            avatar_url 
+            name, 
+            avatarUrl 
         });
 
-        const usuario = response.data;
+        if (!response.ok) {
+            toast.info(response.messages[0]);
+            return;
+        }
+
+        const usuario = response.content;
 
         dispatch(createUsuario(usuario));
 
         setShowAuthModal(false);
 
-        toast.info(`Bem vindo ${nome}`, { position: 'bottom-right' });
+        toast.info(`Bem vindo ${name}`, { position: 'bottom-right' });
 
         if (parametros.editandoComentarioId || parametros.editandoRespostaId) {
             editarComentario({
@@ -332,7 +354,7 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
                 <div>
                     <EntryComment>
                         <img className="round" width={35} height={35} 
-                            src={avatar_url} 
+                            src={avatarUrl} 
                             alt="avatar do usuário"
                         />
                         <textarea type="text" value={descricaoComentario} 
@@ -345,29 +367,29 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
                 {comentarios.map(comentario => (
                     <Commented key={comentario.id} new={comentario.novo}>
                         <img className="round" width={35} height={35} 
-                            src={comentario.usuario.avatar_url ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} 
+                            src={comentario.user.avatarUrl ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} 
                             alt="avatar do usuário"
                         />
                         <div>
                             <div>
-                                <strong>{comentario.usuario.nome}</strong>
-                                <span>{comentario.descricao}</span>
+                                <strong>{comentario.user.name}</strong>
+                                <span>{comentario.description}</span>
                                 <div className="options">
-                                    {comentario.permite_editar && (
+                                    {comentario.allowEdit && (
                                         <button type="button" className="btn-action" 
-                                            onClick={() => handleEditarComentario(comentario.id, comentario.descricao)}>
+                                            onClick={() => handleEditarComentario(comentario.id, comentario.description)}>
                                             Editar
                                         </button>
                                     )}
-                                    {/* {!comentario.permite_editar && (
+                                    {/* {!comentario.allowEdit && (
                                         <button type="button" className="btn-action">Curtir</button>
                                     )} */}
                                     <button type="button" className="btn-action" onClick={() => handleViewEntryResponse(comentario.id)}>
                                         Responder
                                     </button>
-                                    {!!comentario.respostas.length && (
+                                    {!!comentario.answers.length && (
                                         <button type="button" className="btn-action" onClick={() => handleViewResponses(comentario.id)}>
-                                            {comentario.exibirRespostas ? "Ocultar respostas" : `Ver ${comentario.respostas.length} resposta(s)`}
+                                            {comentario.exibirRespostas ? "Ocultar respostas" : `Ver ${comentario.answers.length} resposta(s)`}
                                         </button>
                                     )}
                                 </div>
@@ -375,7 +397,7 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
                             <ContainerResponse show={comentario.showEntryResponse || comentario.exibirRespostas}>
                                 <EntryResponse show={comentario.showEntryResponse}>
                                     <img className="round" width={20} height={20} 
-                                        src={avatar_url} 
+                                        src={avatarUrl} 
                                         alt="avatar do usuário"
                                     />
                                     <textarea type="text"
@@ -386,19 +408,19 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
                                     />
                                 </EntryResponse>
                                 <Response show={comentario.exibirRespostas}>
-                                    {comentario.respostas.map(resposta => (
+                                    {comentario.answers.map(resposta => (
                                         <div key={resposta.id}>
                                             <img className="round" width={20} height={20} 
-                                                src={resposta.usuario.avatar_url ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} 
+                                                src={resposta.user.avatarUrl ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} 
                                                 alt="avatar do usuário"
                                             />
                                             <div className={resposta.novo ? "new-response" : ""}>
-                                                <strong>{resposta.usuario.nome}</strong>
-                                                <span>{resposta.descricao}</span>
+                                                <strong>{resposta.user.name}</strong>
+                                                <span>{resposta.description}</span>
                                             </div>
-                                            {resposta.permite_editar && (
+                                            {resposta.allowEdit && (
                                                 <button type="button" className="btn-action"
-                                                    onClick={() => handleEditarResposta(comentario.id, resposta.id, resposta.descricao)}>
+                                                    onClick={() => handleEditarResposta(comentario.id, resposta.id, resposta.description)}>
                                                     Editar
                                                 </button>
                                             )}

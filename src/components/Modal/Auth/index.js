@@ -14,12 +14,12 @@ export default function AuthModal({ onSuccess: onSuccessCallBack = () => {}}) {
     const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
     async function onSuccess(responseAuth) {
-        const { email, name: nome, imageUrl: avatar_url } = responseAuth.profileObj;
+        const { email, name, imageUrl: avatarUrl } = responseAuth.profileObj;
 
-        const response = await api.post('/usuarios', { 
+        const response = await api.post('/users', { 
             email, 
-            nome, 
-            avatar_url 
+            name, 
+            avatarUrl
         });
 
         const usuario = response.data;

@@ -27,24 +27,36 @@ export default function Content({ children, idConteudo }) {
             const responseIp = await api.get('https://api.ipify.org/?format=json');
 
             // buscando conteúdo
-            const { data } = await api.get(`/conteudos/${idConteudo}`, {
-                params: { idUsuario: usuario?.id },
+            const { data: response } = await api.get(`/contents/${idConteudo}`, {
+                params: { userId: usuario?.id },
                 headers: {
-                    Ip: responseIp.data.ip
+                    ip: responseIp.data.ip
                 }
             });
 
+            if (!response.ok) {
+                toast.info(response.messages[0])
+                return
+            }
+
             // buscando comentários
-            const { comentarios } = await (await api.get(`/conteudos/${idConteudo}/comentarios`, {
+            const { data: responseComments } = await api.get(`/contents/${idConteudo}/comments`, {
                 headers: {
                     user_id:  usuario?.id,
                 }
-            })).data;
+            });
 
+            if (!responseComments.ok) {
+                toast.info(responseComments.messages[0])
+                return
+            }
+
+            const { content } = response
+            
             setConteudo({
-                ...data,
-                dataPublicacaoFormatada: format(parseISO(data.data_publicacao, { locale: pt }), 'dd/MM/yyyy'),
-                comentarios
+                ...content,
+                dataPublicacaoFormatada: format(parseISO(content.createAt, { locale: pt }), 'dd/MM/yyyy'),
+                comentarios: responseComments.content
             });
 
             setLoading(false);
@@ -92,19 +104,19 @@ export default function Content({ children, idConteudo }) {
             {!loading && (
                 <>
                     <Aside>
-                        <LikeButton type="button" curtido={conteudo.curtido} onClick={handleCurtir}>
+                        <LikeButton type="button" curtido={conteudo.liked} onClick={handleCurtir}>
                             <MdFavorite color="#ff0000" size={30} />
                         </LikeButton>
-                        <span>{conteudo.quantidade_curtidas}</span>
+                        <span>{conteudo.amountLikes}</span>
                         <AuthModal onSuccess={handleCurtir}/>
                     </Aside>
                     <div className="card">
                         <Article>
                             <header>
-                                <h1>{conteudo.titulo}</h1>
+                                <h1>{conteudo.name}</h1>
                                 <span>Postado em {conteudo.dataPublicacaoFormatada}</span>
-                                <span>{conteudo.quantidade_acessos} acessos</span>
-                                <p>{conteudo.resumo}</p>
+                                <span>{conteudo.amountAccess} acessos</span>
+                                <p>{conteudo.summary}</p>
                             </header>
                             {children}
                         </Article>

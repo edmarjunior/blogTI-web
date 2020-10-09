@@ -36,12 +36,12 @@ export default function Header() {
     }
 
     async function onSuccessAuthLogin(responseAuth) {
-        const { email, name: nome, imageUrl: avatar_url } = responseAuth.profileObj;
+        const { email, name, imageUrl: avatarUrl } = responseAuth.profileObj;
 
-        const response = await api.post('/usuarios', { 
+        const response = await api.post('/users', { 
             email, 
-            nome, 
-            avatar_url 
+            name, 
+            avatarUrl 
         });
 
         const usuario = response.data;
@@ -50,7 +50,7 @@ export default function Header() {
 
         setShowAuthModal(false);
 
-        toast.info(`Bem vindo ${nome}`, { position: 'bottom-right' });
+        toast.info(`Bem vindo ${name}`, { position: 'bottom-right' });
     }
     
     function onFailureAuth() {
