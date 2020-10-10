@@ -38,13 +38,18 @@ export default function Header() {
     async function onSuccessAuthLogin(responseAuth) {
         const { email, name, imageUrl: avatarUrl } = responseAuth.profileObj;
 
-        const response = await api.post('/users', { 
+        const { data: response } = await api.post('/users', { 
             email, 
             name, 
             avatarUrl 
         });
 
-        const usuario = response.data;
+        if (!response.ok) {
+            toast.info(response.messages[0]);
+            return;
+        }
+
+        const usuario = response.content;
 
         dispatch(createUsuario(usuario));
 
@@ -73,11 +78,14 @@ export default function Header() {
                     </div>
                     <Profile>
                         <div className="info_usuario">
-                            <strong>{usuario?.nome ?? 'Bem vindo'}</strong>
+                            <strong>{usuario?.name ?? 'Bem vindo'}</strong>
                             {usuario?.email && <span>{usuario.email}</span>}
                             {!usuario?.email && <span>faça login <MdForward /></span>}
                         </div>
-                        <img className="round" onClick={openModal} src= {usuario?.avatar_url ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} alt="avatar do usuário"/>
+                        <img className="round" onClick={openModal} 
+                            src= {usuario?.avatarUrl ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} 
+                            alt="avatar do usuário"
+                        />
                     </Profile>
                 </Content>
             </HeaderCss>

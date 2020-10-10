@@ -67,7 +67,7 @@ export default function Content({ children, idConteudo }) {
     async function handleCurtir(usuarioCadastrado) {
         const usuarioLogado = usuario ?? usuarioCadastrado;
 
-        if (conteudo.curtido) {
+        if (conteudo.liked) {
             toast.info('Este conteúdo já esta curtido, obrigado!');
             return;
         }
@@ -78,23 +78,30 @@ export default function Content({ children, idConteudo }) {
         }
 
         try {
-            const response = await api.post(`/curtida-conteudo/${idConteudo}`, null, {
+            const { data: response } = await api.post('/likes', 
+                {
+                    contentId: idConteudo
+                }, 
+                {
                 headers: {
-                    Authorization: `bearer ${usuarioLogado.token}`
+                    Authorization: `bearer ${usuarioLogado.accessToken}`
                 }
             });
     
-            if (response.data.curtido_anteriormente) {
-                toast.info(response.data.msg);
-            } else {
-                toast.info("Que bom que gostou desse conteúdo");
-                setConteudo({
-                    ...conteudo,
-                    quantidade_curtidas: conteudo.quantidade_curtidas + 1,
-                })
+            if (!response.ok) {
+                toast.info(response.messages);
+                return;
             }
+
+            toast.info("Vlw pelo Like ;)");
+
+            setConteudo({
+                ...conteudo,
+                amountLikes: conteudo.amountLikes + 1,
+            })
         } catch(err) {
-            toast.error("Falha ao curtir conteúdo");
+            const message = err?.response?.data?.messages[0];
+            toast.error(message || 'Ocorreu uma falha, tente novamente mais tarde');
         }
     }
 

@@ -16,13 +16,18 @@ export default function AuthModal({ onSuccess: onSuccessCallBack = () => {}}) {
     async function onSuccess(responseAuth) {
         const { email, name, imageUrl: avatarUrl } = responseAuth.profileObj;
 
-        const response = await api.post('/users', { 
+        const { data: response } = await api.post('/users', { 
             email, 
             name, 
             avatarUrl
         });
 
-        const usuario = response.data;
+        if (!response.ok) {
+            toast.info(response.messages[0]);
+            return;
+        }
+
+        const usuario = response.content;
 
         dispatch(createUsuario(usuario));
 

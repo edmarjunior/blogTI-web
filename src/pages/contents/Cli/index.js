@@ -44,7 +44,7 @@ export default function Cli() {
     }, []);
 
     return (
-        <Content idConteudo='5f7e719c7ad4f63214b8fa31'>
+        <Content idConteudo='5f6f518d473b7899c7bcac10'>
             <section>
                 <h2>Breve explicação sobre CLI</h2>
                 <p>
