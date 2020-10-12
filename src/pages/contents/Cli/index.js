@@ -20,7 +20,7 @@ import img16 from './assets/img16.png';
 
 import api from '../../../services/api';
 import Content from '../../_layouts/content';
-import { ContainerRepository } from './styles';
+import { ContainerRepository } from '../../../components/ContainerRepository/styles';
 
 export default function Cli() {
     const [repo, setRepo] = useState({});
