@@ -5,6 +5,7 @@ import { parseISO, format } from "date-fns";
 import pt from "date-fns/locale/pt";
 import { toast } from "react-toastify";
 import { MdFavorite } from 'react-icons/md';
+import DOMPurify from 'dompurify';
 
 import api from '../../services/api';
 import { openModal } from "../../store/modules/auth/actions";
@@ -130,7 +131,7 @@ export default function Post() {
                                 <span>{conteudo.amountAccess} acessos</span>
                                 <p>{conteudo.summary}</p>
                             </header>
-                            <div dangerouslySetInnerHTML={{__html: conteudo.content}} />
+                            <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(conteudo.content)}} />
                         </Article>
                     </div>
                     <Comments comentarios={conteudo.comentarios} idConteudo={conteudo.id}></Comments>
