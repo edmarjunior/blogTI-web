@@ -61,6 +61,7 @@ export default function Post() {
                 ...content,
                 dataPublicacaoFormatada: format(parseISO(content.createAt, { locale: pt }), 'dd/MM/yyyy'),
                 comentarios: responseComments.content,
+                content: content.content.replace(/\n/gi, "")
             });
 
             setLoading(false);
@@ -129,10 +130,7 @@ export default function Post() {
                                 <span>{conteudo.amountAccess} acessos</span>
                                 <p>{conteudo.summary}</p>
                             </header>
-                            {/* {conteudo.content} */}
                             <div dangerouslySetInnerHTML={{__html: conteudo.content}} />
-
-                            
                         </Article>
                     </div>
                     <Comments comentarios={conteudo.comentarios} idConteudo={conteudo.id}></Comments>
