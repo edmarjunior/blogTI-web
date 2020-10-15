@@ -99,10 +99,21 @@ export const Menu = styled.div`
             width: 100%;
         }
 
-        a {
+        > a {
             color: #fff;
             padding: 13px;
 
+            :hover {
+                background: ${darken(0.1, '#4F3AB7')};
+            }
+        }
+
+        > button {
+            padding: 13px;
+            background: #4F3AB7;
+            color: #fff;
+            border: none;
+            
             :hover {
                 background: ${darken(0.1, '#4F3AB7')};
             }

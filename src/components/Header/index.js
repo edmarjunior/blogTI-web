@@ -91,7 +91,7 @@ export default function Header() {
             </HeaderCss>
             <Menu>
                 <nav>
-                    <Link to="/" >Conteúdos</Link>
+                    <Link to="/posts" >Conteúdos</Link>
                     <Link to="/about" >Sobre</Link>
                 </nav>
             </Menu>
