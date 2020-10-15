@@ -61,7 +61,11 @@ export default function Post() {
                 ...content,
                 dataPublicacaoFormatada: format(parseISO(content.createAt, { locale: pt }), 'dd/MM/yyyy'),
                 comentarios: responseComments.content,
+<<<<<<< HEAD
                 content: content.content.replace(/\n/gi, "")
+=======
+                content: content.content.replaceAll("\n", '')
+>>>>>>> 25a93593d7cfd7afe855b25d4bb14e3cd760fbd3
             });
 
             setLoading(false);
