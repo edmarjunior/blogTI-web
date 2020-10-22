@@ -7,21 +7,31 @@ export const Container = styled.div`
 `
 
 export const Post = styled.div`
-    width: 18%;
-    margin: 0 5px;
-    cursor: pointer;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
 
-    img {
-        width: 100%;
+    @media(min-width: 730px) {
+        width: 18%;
+        cursor: pointer;
+        opacity: 0.85;
+        transition: all .2s ease-in-out;
+
+        :hover {
+            opacity: 1;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+
+            img {
+                opacity: 1;
+            }
+        }
     }
 
-    :hover {
-        opacity: 0.7;
-    }
-
-    h1 {
-        font-size: 20px;
-        color: #4F3AB7
+    @media(max-width: 730px) {
+        width: 95%;
     }
 `
 
@@ -30,21 +40,44 @@ export const InfoContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+
+    img {
+        width: 100%;
+    }
+
+    > h1 {
+        font-size: 18px;
+        color: #4F3AB7;
+        margin: 5px 0 0;
+        max-width: 320px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 `;
 
 export const CreateButton = styled.button`
-    position: absolute;
-    left: 90%;
-    top: 90%;
+    position: fixed;
     border: none;
     border-radius: 50%;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
     opacity: 0.7;
     transition: all .2s ease-in-out;
-    padding: 8px;
+    padding: 5px;
 
-    :hover {
+    @media(min-width: 730px) {
+        top: 90%;
+        left: 90%;
+
+        :hover {
+            opacity: 1;
+            transform: scale(1.3);
+        }
+    }
+
+    @media(max-width: 730px) {
         opacity: 1;
-        transform: scale(1.3);
+        top: 90%;
+        left: 80%;
     }
 `;
