@@ -8,7 +8,7 @@ export default function About() {
             <Content>
                 <img className="round" src={meuAvatar} alt="foto perfil edmar" />
                 <strong>Edmar Costa</strong>
-                <span>Software Developer at 
+                <span>Software Developer at&nbsp;
                     <a 
                         target="_blank" 
                         rel="noopener noreferrer" 
