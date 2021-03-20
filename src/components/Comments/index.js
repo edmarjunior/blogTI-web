@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import api from '../../services/api';
 import { Modal, Button } from 'react-bootstrap';
 import GoogleLogin from "react-google-login";
+import { MdAccountCircle } from 'react-icons/md';
 
 import { createUsuario } from "../../store/modules/usuario/actions";
 import { toast } from 'react-toastify';
@@ -13,7 +14,7 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
     const dispatch = useDispatch();
     const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
     const usuario = useSelector(state => state.usuario.perfil);
-    const avatarUrl = usuario?.avatarUrl ?? 'https://api.adorable.io/avatars/50/abott@adorable.png';
+    const avatarUrl = usuario?.avatarUrl;
 
     const [comentarios, setComentarios] = useState(comentariosParam);
     const [descricaoComentario, setDescricaoComentario] = useState('');
@@ -353,10 +354,13 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
                 <h1>Comentários</h1>
                 <div>
                     <EntryComment>
-                        <img className="round" width={35} height={35} 
-                            src={avatarUrl} 
-                            alt="avatar do usuário"
-                        />
+                        {!avatarUrl && <MdAccountCircle size={35} /> }
+                        {!!avatarUrl && (
+                            <img className="round" width={35} height={35} 
+                                src={avatarUrl} 
+                                alt="avatar do usuário"
+                            />
+                        )}
                         <textarea type="text" value={descricaoComentario} 
                             onChange={onChangeComment} 
                             onKeyDown={onTypeComment} 
@@ -366,10 +370,13 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
                 </div>
                 {comentarios.map(comentario => (
                     <Commented key={comentario.id} new={comentario.novo}>
-                        <img className="round" width={35} height={35} 
-                            src={comentario.user.avatarUrl ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} 
-                            alt="avatar do usuário"
-                        />
+                        {!comentario.user.avatarUrl && <MdAccountCircle size={35} />}
+                        {comentario.user.avatarUrl && (
+                            <img className="round" width={35} height={35} 
+                                src={comentario.user.avatarUrl} 
+                                alt="avatar do usuário"
+                            />
+                        )}
                         <div>
                             <div>
                                 <strong>{comentario.user.name}</strong>
@@ -396,10 +403,13 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
                             </div>
                             <ContainerResponse show={comentario.showEntryResponse || comentario.exibirRespostas}>
                                 <EntryResponse show={comentario.showEntryResponse}>
-                                    <img className="round" width={20} height={20} 
-                                        src={avatarUrl} 
-                                        alt="avatar do usuário"
-                                    />
+                                    {!avatarUrl && <MdAccountCircle size={20} />}
+                                    {!!avatarUrl && (
+                                        <img className="round" width={20} height={20} 
+                                            src={avatarUrl} 
+                                            alt="avatar do usuário"
+                                        />
+                                    )}
                                     <textarea type="text"
                                         value={comentario.responseValue} 
                                         onChange={(event) => onChangeResponse(event, comentario.id)} 
@@ -410,10 +420,14 @@ export default function Comments({ comentarios: comentariosParam, idConteudo }) 
                                 <Response show={comentario.exibirRespostas}>
                                     {comentario.answers.map(resposta => (
                                         <div key={resposta.id}>
-                                            <img className="round" width={20} height={20} 
-                                                src={resposta.user.avatarUrl ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} 
-                                                alt="avatar do usuário"
-                                            />
+                                            {!resposta.user.avatarUrl && <MdAccountCircle size={20} />}
+                                            {!!resposta.user.avatarUrl && (
+                                                <img className="round" width={20} height={20} 
+                                                    src={resposta.user.avatarUrl} 
+                                                    alt="avatar do usuário"
+                                                />
+                                            )}
+                                            
                                             <div className={resposta.novo ? "new-response" : ""}>
                                                 <strong>{resposta.user.name}</strong>
                                                 <span>{resposta.description}</span>

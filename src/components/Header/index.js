@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { MdForward} from 'react-icons/md'
+import { MdForward, MdAccountCircle } from 'react-icons/md';
 import { Modal, Button } from 'react-bootstrap';
 import GoogleLogin from "react-google-login";
 import { toast } from "react-toastify";
@@ -82,10 +82,20 @@ export default function Header() {
                             {usuario?.email && <span>{usuario.email}</span>}
                             {!usuario?.email && <span>faça login <MdForward /></span>}
                         </div>
-                        <img className="round" onClick={openModal} 
-                            src= {usuario?.avatarUrl ?? 'https://api.adorable.io/avatars/50/abott@adorable.png'} 
-                            alt="avatar do usuário"
-                        />
+                        {!usuario?.avatarUrl && (
+                            <MdAccountCircle   
+                                size={52} 
+                                onClick={openModal}  
+                                style={{ cursor: 'pointer'}}
+                            />
+                        )}
+                        {usuario?.avatarUrl && (
+                            <img className="round" onClick={openModal} 
+                                src={usuario.avatarUrl} 
+                                alt="avatar do usuário"
+                            />
+                        )}
+                        
                     </Profile>
                 </Content>
             </HeaderCss>
